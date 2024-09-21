@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-
+import api from '../api'; // Your axios instance
 const UserForm = () => {
 const [formData, setFormData] = useState({
   name: '',
@@ -62,7 +61,7 @@ const handleSubmit = async (e) => {
   });
 
   try {
-    const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/users`, data, {
+    const res = await api.post('/api/users', data, {
       headers: {
         'Content-Type': 'multipart/form-data'
       },
