@@ -10,13 +10,25 @@ dotenv.config();
 const app = express();
 
 // Middleware
+const allowedOrigins = ['https://socialmedia-f.onrender.com', 'https://socialmedia-yps5.onrender.com', 'http://localhost:3000'];
+
 app.use(cors({
-    origin: ['https://socialmedia-f.onrender.com', 'http://localhost:3000'],
-   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Include OPTIONS method
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true, // If you need to support credentials (like cookies)
-  optionsSuccessStatus: 200,
+    origin: function(origin, callback){
+        // allow requests with no origin 
+        // (like mobile apps or curl requests)
+        if(!origin) return callback(null, true);
+        if(allowedOrigins.indexOf(origin) === -1){
+            const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+            return callback(new Error(msg), false);
+        }
+        return callback(null, true);
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+    optionsSuccessStatus: 200,
 }));
+
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // Serve static files
 
