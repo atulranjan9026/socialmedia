@@ -11,7 +11,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-    origin: 'https://socialmedia-f.onrender.com', 
+    origin: ['https://socialmedia-f.onrender.com', 'http://localhost:3000'],
    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Include OPTIONS method
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true, // If you need to support credentials (like cookies)
