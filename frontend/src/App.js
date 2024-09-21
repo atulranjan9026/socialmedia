@@ -1,8 +1,10 @@
+// Import Statements at the Top
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-router-dom';
 import UserForm from './components/UserForm';
 import AdminLogin from './components/AdminLogin';
 import AdminDashboard from './components/AdminDashboard';
+import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './contexts/AuthContext';
 
 function App() {
@@ -45,14 +47,5 @@ function App() {
     </AuthProvider>
   );
 }
-
-// Protected Route Component
-import { useContext } from 'react';
-import { AuthContext } from './contexts/AuthContext';
-
-const ProtectedRoute = ({ children }) => {
-  const { auth } = useContext(AuthContext);
-  return auth ? children : <Navigate to="/admin/login" />;
-};
 
 export default App;
