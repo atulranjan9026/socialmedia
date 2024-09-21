@@ -21,7 +21,7 @@ const AdminLogin = () => {
     setMessage('');
 
     try {
-      const res = await axios.post('http://localhost:5000/api/admin/login', credentials);
+      const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/admin/login`, credentials);
       localStorage.setItem('token', res.data.token);
       setAuth(true);
       navigate('/admin/dashboard'); // Redirect to dashboard upon successful login

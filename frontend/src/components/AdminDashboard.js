@@ -34,7 +34,7 @@ const AdminDashboard = () => {
     }
 
     try {
-      const res = await axios.get('http://localhost:5000/api/dashboard/users', {
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/dashboard/users`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       setUsers(res.data);
@@ -74,9 +74,9 @@ const AdminDashboard = () => {
               <div className="row">
                 {user.images.map((img, index) => (
                   <div key={index} className="col-md-3 mb-3">
-                    <a href={`http://localhost:5000/${img}`} target="_blank" rel="noopener noreferrer">
+                    <a href={`${process.env.REACT_APP_API_URL}/${img}`} target="_blank" rel="noopener noreferrer">
                       <img 
-                        src={`http://localhost:5000/${img}`} 
+                        src={`${process.env.REACT_APP_API_URL}/${img}`} 
                         alt={`User upload ${index}`} 
                         className="img-fluid img-thumbnail"
                       />
