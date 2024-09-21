@@ -14,7 +14,6 @@ app.use(cors({
     origin: 'https://socialmedia-f.onrender.com/', 
    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Include OPTIONS method
   allowedHeaders: ['Content-Type', 'Authorization'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true, // If you need to support credentials (like cookies)
   optionsSuccessStatus: 200,
 }));
