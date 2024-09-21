@@ -11,7 +11,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-    origin: 'http://localhost:3000', 
+    origin: 'https://socialmedia-f.onrender.com/', 
    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Include OPTIONS method
   allowedHeaders: ['Content-Type', 'Authorization'],
   allowedHeaders: ['Content-Type', 'Authorization'],
