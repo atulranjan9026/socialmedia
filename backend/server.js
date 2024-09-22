@@ -10,7 +10,7 @@ dotenv.config();
 const app = express();
 
 // Middleware
-const allowedOrigins = ['https://socialmedia-f.onrender.com', 'http://localhost:3000'];
+const allowedOrigins = ['https://socialmedia-f.onrender.com'];
 
 app.use(cors({
     origin: function(origin, callback){
