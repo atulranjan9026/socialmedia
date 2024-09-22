@@ -73,7 +73,7 @@ const AdminDashboard = () => {
               <div className="row">
                 {user.images.map((img, index) => (
                   <div key={index} className="col-md-3 mb-3">
-                    <a href={`${process.env.REACT_APP_API_URL}/${img}`} target="_blank" rel="noopener noreferrer">
+                    <a href={`${process.env.REACT_APP_API_URL}/api/${img}`} target="_blank" rel="noopener noreferrer">
                       <img 
                         src={`${process.env.REACT_APP_API_URL}/${img}`} 
                         alt={`User upload ${index}`} 
