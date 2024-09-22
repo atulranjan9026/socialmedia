@@ -5,30 +5,25 @@ import AdminLogin from './components/AdminLogin';
 import AdminDashboard from './components/AdminDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './contexts/AuthContext';
+import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap'; // Import React Bootstrap components
 
 function App() {
   return (
     <AuthProvider>
       <Router>
         {/* Navigation Bar */}
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <div className="container-fluid">
-            <Link className="navbar-brand" to="/">User Submission</Link>
-            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className="collapse navbar-collapse" id="navbarNav">
-              <ul className="navbar-nav ms-auto">
-                <li className="nav-item">
-                  <Link className="nav-link" to="/">Submit</Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/admin/login">Admin</Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
+        <Navbar bg="light" expand="lg">
+          <Container fluid>
+            <Navbar.Brand as={Link} to="/">User Submission</Navbar.Brand>
+            <Navbar.Toggle aria-controls="navbarNav" />
+            <Navbar.Collapse id="navbarNav">
+              <Nav className="ms-auto">
+                <Nav.Link as={Link} to="/">Submit</Nav.Link>
+                <Nav.Link as={Link} to="/admin/login">Admin</Nav.Link>
+              </Nav>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
 
         {/* Define Routes */}
         <Routes>
