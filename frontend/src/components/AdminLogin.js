@@ -28,11 +28,27 @@ const AdminLogin = () => {
             navigate('/admin/dashboard');
         } catch (err) {
             console.error('Login error:', err);
-            setMessage(err.response?.data?.message || 'Login failed');
+            // Enhanced error logging
+            if (err.response) {
+                // Server responded with a status other than 2xx
+                console.error('Error data:', err.response.data);
+                console.error('Error status:', err.response.status);
+                console.error('Error headers:', err.response.headers);
+                setMessage(err.response.data.message || 'Login failed');
+            } else if (err.request) {
+                // Request was made but no response received
+                console.error('No response received:', err.request);
+                setMessage('No response from server');
+            } else {
+                // Something else happened
+                console.error('Error setting up request:', err.message);
+                setMessage('An unexpected error occurred');
+            }
         } finally {
             setIsLoading(false);
         }
     };
+    
 
     return (
         <div className="container mt-5">
