@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import api from '../api'; // Your axios instance
+import api from '../api'; // Corrected import path based on `api.js` export
 import { AuthContext } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,6 +8,7 @@ const AdminLogin = () => {
     const [message, setMessage] = useState('');
     const { setAuth } = useContext(AuthContext);
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false); // Loading state
 
     const handleChange = (e) => {
         setCredentials({ ...credentials, [e.target.name]: e.target.value });
@@ -15,20 +16,32 @@ const AdminLogin = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setMessage('');
+        setIsLoading(true);
         try {
             const res = await api.post('/api/admin/login', credentials);
+            const { token, message } = res.data;
+            // Store token in localStorage
+            localStorage.setItem('token', token);
             setAuth(true);
-            setMessage(res.data.message);
+            setMessage(message || 'Login successful.');
             navigate('/admin/dashboard');
         } catch (err) {
+            console.error('Login error:', err);
             setMessage(err.response?.data?.message || 'Login failed');
+        } finally {
+            setIsLoading(false);
         }
     };
 
     return (
         <div className="container mt-5">
             <h2>Admin Login</h2>
-            {message && <div className="alert alert-info">{message}</div>}
+            {message && (
+                <div className={`alert ${message.startsWith('Error') ? 'alert-danger' : 'alert-info'}`}>
+                    {message}
+                </div>
+            )}
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="username">Username:</label>
@@ -40,6 +53,8 @@ const AdminLogin = () => {
                         value={credentials.username}
                         onChange={handleChange}
                         required
+                        aria-required="true"
+                        aria-label="Username"
                     />
                 </div>
                 <div className="form-group mt-3">
@@ -52,9 +67,13 @@ const AdminLogin = () => {
                         value={credentials.password}
                         onChange={handleChange}
                         required
+                        aria-required="true"
+                        aria-label="Password"
                     />
                 </div>
-                <button type="submit" className="btn btn-primary mt-4">Login</button>
+                <button type="submit" className="btn btn-primary mt-4" disabled={isLoading}>
+                    {isLoading ? 'Logging in...' : 'Login'}
+                </button>
             </form>
         </div>
     );

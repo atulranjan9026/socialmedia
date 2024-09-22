@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import axios from 'axios';
+import api from '../api'; 
 import { AuthContext } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,7 +8,6 @@ const AdminDashboard = () => {
   const [message, setMessage] = useState('');
   const { auth, setAuth } = useContext(AuthContext);
   const navigate = useNavigate();
-
   useEffect(() => {
     if (!auth) {
       navigate('/admin/login');
@@ -34,7 +33,7 @@ const AdminDashboard = () => {
     }
 
     try {
-      const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/dashboard/users`, {
+      const res = await api.get(`/api/dashboard/users`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       setUsers(res.data);
